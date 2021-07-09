@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.min.js"></script>
+    <script src="js/qrious.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <title>Gerador de QRCode</title>
+    <https://fsf.org/>
+</head>
+
+<body>
+    <div id="app">
+        <h1>{{ titulo }}</h1>
+
+        <div>
+            <input type="text" size="25" placeholder="Digite a url para gerar... " v-model="texto">
+        </div>
+
+        <div v-if="texto" class="output">
+            <img :src="newQRCode" alt="QRCode">
+        </div>
+        
+        <div class="teste">
+            <div class="qr1">
+                <div>
+                    <h1> {{ titulo1 }} </h1>
+                    <img class="qrcode1" :src="newQRCode1" alt="QRCode">
+                    <p><strong>OU</strong></p>
+                    <hr>
+                    <a href="https://davydev.github.io/ProjetoDeEstatistica/ProjetoDeEstatistica/">Visite pelo Link</a>
+                    <hr>
+                </div>
+                
+                <div>
+                    <h1> {{ titulo2 }} </h1>
+                    <img :src="newQRCode2"  alt="QRCode">
+                    <p><strong>OU</strong></p>
+                    <hr>
+                    <a href="https://davydev.github.io/ControleFinanceiro/MeuOrcamentoFinanceiro/">Visite pelo Link</a>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        
+    
+    </div>
+
+    <script>
+
+        new Vue ({
+            el: '#app',
+            data: {
+                titulo:"Gerador QRCode",
+                texto: '',
+                qrcode: new QRious({size: 300}),
+
+                qrcode1: new QRious({size: 150, value:"https://davydev.github.io/ProjetoDeEstatistica/ProjetoDeEstatistica/"}),
+                titulo1: "Projeto de Estatística",
+
+                qrcode2: new QRious({size: 150, value: "https://davydev.github.io/ControleFinanceiro/MeuOrcamentoFinanceiro/"}),
+                titulo2: "Projeto MyPocket"
+            },
+            computed: {
+                newQRCode() {
+                    this.qrcode.value = this.texto
+                    return this.qrcode.toDataURL()
+                },
+
+                newQRCode1() {
+                    return this.qrcode1.toDataURL()
+                },
+
+                newQRCode2() {
+                    return this.qrcode2.toDataURL()
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>
